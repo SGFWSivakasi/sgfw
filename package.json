@@ -9,7 +9,7 @@
     "node": "18.14.1"
   },
   "dependencies": {
-    "chrome-aws-lambda": "^10.1.0",
+    "chrome-aws-lambda": "^9.1.0",
     "connect-mongo": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -22,7 +22,6 @@
     "morgan": "~1.9.1",
     "number-to-words": "^1.2.4",
     "puppeteer": "^21.1.1",
-    "puppeteer-core": "^21.1.1",
     "xvfb": "^0.4.0"
   }
 }
