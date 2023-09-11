@@ -5,6 +5,7 @@ const Bill = require('../models/bill');
 const Login = require('../models/login');
 const puppeteer = require("puppeteer");
 var fs = require("fs");
+const getPage = require('../models/page');
 
 var converter = require('number-to-words');
 
