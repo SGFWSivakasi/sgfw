@@ -6,7 +6,7 @@ const Login = require('../models/login');
 const puppeteer = require("puppeteer");
 var fs = require("fs");
 const getPage = require('../models/page');
-const chromium = require('chrome-aws-lambda');
+// const chromium = require('chrome-aws-lambda');
 
 var converter = require('number-to-words');
 
@@ -223,7 +223,7 @@ router.get('/generateEstimate/:id', function(req,res,next){
         const browser = await puppeteer.launch({
           headless:false,
           args: ['--no-sandbox','--disable-setuid-sandbox'],
-          executablePath: "./node_modules/puppeteer/.local-chromium/win64-656675/chrome-win/chrome.exe"
+          executablePath: "/path/to/Chrome"
         });
     
       // create a new page
