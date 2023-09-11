@@ -10,6 +10,7 @@
     "puppeteer": "19.7.2"
   },
   "dependencies": {
+    "chrome-aws-lambda": "^10.1.0",
     "connect-mongo": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
