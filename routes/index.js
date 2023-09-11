@@ -222,7 +222,7 @@ router.get('/generateEstimate/:id', function(req,res,next){
 
         const browser = await puppeteer.launch({
           headless:false,
-          args: ['--no-sandbox','--disable-setuid-sandbox','--display='+xvfb._display],
+          args: ['--no-sandbox','--disable-setuid-sandbox'],
           executablePath: '/path/to/Chrome'
         });
     
