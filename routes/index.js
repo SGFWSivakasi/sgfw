@@ -218,13 +218,12 @@ router.get('/generateEstimate/:id', function(req,res,next){
 
       let browser;
       (async () => {
+        
 
-        const browser = await chromium.puppeteer.launch({
-          args: chromium.args,
-          defaultViewport: chromium.defaultViewport,
-          executablePath: await chromium.executablePath,
-          headless: chromium.headless,
-          ignoreHTTPSErrors: true,
+        const browser = await stats.puppeteer.launch({
+          headless:false,
+          args: ['--no-sandbox','--disable-setuid-sandbox','--display='+xvfb._display],
+          executablePath: '/path/to/Chrome'
         });
     
       // create a new page
