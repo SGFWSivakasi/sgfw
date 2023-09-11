@@ -6,8 +6,7 @@
     "start": "node ./bin/www"
   },
   "engines": {
-    "node": "18.14.1",
-    "puppeteer": "19.7.2"
+    "node": "18.14.1"
   },
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
@@ -23,6 +22,7 @@
     "morgan": "~1.9.1",
     "number-to-words": "^1.2.4",
     "puppeteer": "^21.1.1",
+    "puppeteer-core": "^21.1.1",
     "xvfb": "^0.4.0"
   }
 }
