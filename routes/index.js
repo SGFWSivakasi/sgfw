@@ -220,7 +220,7 @@ router.get('/generateEstimate/:id', function(req,res,next){
       (async () => {
         
 
-        const browser = await stats.puppeteer.launch({
+        const browser = await puppeteer.launch({
           headless:false,
           args: ['--no-sandbox','--disable-setuid-sandbox','--display='+xvfb._display],
           executablePath: '/path/to/Chrome'
