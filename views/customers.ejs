@@ -1,0 +1,49 @@
+<%- include("partials/header.ejs") -%>
+
+<section id="reports">
+    <div class="container-fluid cf-reports">
+        <div class="row">
+            <h1 style="color: hsl(320, 100%, 15%); padding-bottom: 2% !important;">REPORTS</h1>
+            <div class="col-md-2">  
+                <div class=" align-items-start">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/reports" class="nav-link" id="v-pills-profile-tab" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Bills</a>
+                        <a href="#" class="nav-link active" id="v-pills-messages-tab" role="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Customers</a>
+                        <a href="/saleByDay" class="nav-link" id="v-pills-settings-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Sale by Day</a>
+                        <a href="/saleByItems" class="nav-link" id="v-pills-settings-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Sale by Items</a>
+                      </div>
+                  </div>
+            </div>
+            <div class="col-md-10 row">
+                <div class="col-md-6" style="margin: auto !important;">
+                    <table class="table" style="text-align: left !important;">
+                        <thead>
+                          <tr>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% if (bills) { %>
+                                <% bills.forEach(bill => { %>
+                                    
+                          <tr>
+                            <td><%=bill.partyName%></td>
+                            <td><%=bill.partyMob%></td>
+                            <td><%=bill.partyEmail%></td>
+                        </tr>
+                          
+                       <% }) %>
+                       <% } %>
+                     
+                        </tbody>
+                    </table>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") -%>

@@ -1,0 +1,200 @@
+<%- include("partials/header.ejs") -%>
+    
+<section id="mainSection">
+    <div class="container-fluid cf-bill">
+      <form action="/addNewBill" method="post">
+        <div class="row">
+            <div class="col-md-12">
+              <h1 style="color: #4C0033; padding-bottom: 2% !important;">NEW BILL</h1>
+                  <table class="table table-light table-responsive">
+                      <thead>
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Per</th>
+                            <th scope="col">In Stock</th> 
+                            <th scope="col">Count</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <% if (products) { %>
+                            <input type="hidden" name="length" id="length" value="<%=products.length%>">
+                          <% products.forEach((product,index) => { %>
+                             
+                            
+                              <tr>
+                                <td><%=product.type%></td>
+                                <td><%=product.name%></td>
+                                <td><%=product.rate%></td>
+                                <td><%=product.per%></td>
+                                <td><%=product.currentStock%></td>
+                                <input type="hidden" name="productName" id="productName<%=index%>" value="<%=product.name%>">
+                                <input type="hidden" name="type" id="productType<%=index%>" value="<%=product.type%>">
+                                <input type="hidden" name="currentStock" id="currentStock1<%=index%>" value="<%=product.currentStock%>">
+                                <input type="hidden" name="rate" id="rate<%=index%>" value="<%=product.rate%>">
+                                <input type="hidden" name="per" id="per<%=index%>" value="<%=product.per%>">
+                                <input type="hidden" name="subValueAmt" id="subValueAmt<%=index%>" value>
+                                <input type="hidden" name="productID" id="productID<%=index%>" value="<%=product._id%>">
+                                <% if (product.currentStock > 0) { %>
+                                    <td><input type="number" min="0" defaultValue="0" style="width:50px !important; margin:auto !important;" class="form-control" name="newStock" id="newStock<%=index%>" onChange="setLimit('<%=index%>')"></td>
+                                <% } else { %>
+                                    <td><input type="number" min="0" defaultValue="0" style="width:50px !important; margin:auto !important;" class="form-control" disabled></td>                                    
+                                <% } %>
+                                <td><input type="number" disabled style="width:80px !important; margin:auto !important;" class="form-control" name="subValue" id="subValue_<%=index%>"></td>
+                             </tr>
+
+                                
+                          <% }) %>
+                          <% } %>
+                      </tbody>
+                  </table>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <input type="text" pattern="[A-Za-z ]{1,32}" class="form-control"  name="partyName"  id="partyName" required placeholder="Name">
+              </div>
+              <div class="mb-3">
+                <input pattern="[6789][0-9]{9}" type="text" class="form-control" name="partyMob" id="partyMob" required placeholder="Contact">
+              </div>
+              <div class="mb-3">
+                <input type="email" class="form-control" name="partyEmail" id="partyEmail" required placeholder="Email">
+              </div>
+              <div class="mb-3">
+                <textarea class="form-control" id="partyAddress" name="partyAddress" rows="3" required placeholder="Address"></textarea>
+              </div>
+            </div>
+      
+            <div class="col-md-6">
+              <table class="table" style="text-align: right; padding: 2rem 5rem !important;">
+               
+                <tbody>
+                  <tr>
+                    <th scope="col">Net Total</th>
+                    <td><p style="margin-bottom: 0px;" id="netTotalValue"></p></td>
+                    <input type="hidden" name="netTotal" id="netTotal" value>
+                  </tr>
+      
+                  <tr>
+                    <th scope="col">Discount Value <input type="text" name="discValue" id="discValue"  style="width: 40px !important;" onchange="calcDisc()">%</th>
+                    <td><p style="margin-bottom: 0px;" id="discTotal"></p></td>
+                    <input type="hidden" name="discTotalVal" id="discTotalVal" value>
+                  </tr>
+      
+                  <tr>
+                    <th scope="col">Sub Total</th>
+                    <td><p style="margin-bottom: 0px;" id="subTotal"></p></td>
+                    <input type="hidden" name="subTotalVal" id="subTotalVal" value>
+                  </tr>
+      
+                  <tr>
+                    <th scope="col">Min Order Value</th>
+                    <td><p style="margin-bottom: 0px; color: red; font-weight: bold;">&#8377; 1,000.00</p></td>
+                  </tr>
+      
+                  <!-- <tr>
+                    <th scope="col">Packing Charge</th>
+                    <td><p style="margin-bottom: 0px;" id="pckCharge"></p></td>
+                    <input type="hidden" name="pckChargeVal" id="pckChargeVal" value>
+                  </tr> -->
+
+                  <tr>
+                    <th scope="col">SGST</th>
+                    <td><p style="margin-bottom: 0px;" id="sgst"></p></td>
+                    <input type="hidden" name="sgstVal" id="sgstVal" value>
+                  </tr>
+
+                  <tr>
+                    <th scope="col">CGST</th>
+                    <td><p style="margin-bottom: 0px;" id="cgst"></p></td>
+                    <input type="hidden" name="cgstVal" id="cgstVal" value>
+                  </tr>
+
+                  <!-- <tr>
+                    <th scope="col">Packing Charge</th>
+                    <td><p style="margin-bottom: 0px;" id="pckCharge"></p></td>
+                    <input type="hidden" name="pckChargeVal" id="pckChargeVal" value>
+                  </tr> -->
+      
+                  <tr>
+                    <th scope="col">Overall Total</th>
+                    <td><p style="margin-bottom: 0px;" id="finalBill"></p></td>
+                    <input type="hidden" name="finalBillVal" id="finalBillVal" value>
+                  </tr>
+      
+                  <tr>
+                    <th></th>
+                    <td><button type="submit" style="text-align:right;" id="submitButton" class="btn btn-sm btn-warning">Submit</button></td>
+                  </tr>
+      
+                </tbody>
+              </table>
+              
+            </div>
+          </div>
+      </form>
+    </div>
+</section>
+
+<script>
+    function setLimit(i){
+        var length = document.getElementById("length").value;
+        var stockValue = document.getElementById("currentStock1" + i).value;
+        document.getElementById("newStock" + i).setAttribute("max",stockValue);
+
+        var rateValue = document.getElementById("rate" + i).value;
+        var newStockValue= document.getElementById("newStock" + i).value;
+        var actSubValue = rateValue * newStockValue;
+        
+        document.getElementById("subValue_" + i).value = actSubValue;
+        document.getElementById("subValueAmt" + i).value = actSubValue;
+
+        var netTotal = 0;
+
+        for(i=0;i<length;i++){
+          netTotal = netTotal += Number(document.getElementById("subValue_" + i).value);
+        }
+        
+        document.getElementById("netTotal").value = netTotal;
+        document.getElementById("netTotalValue").innerHTML = netTotal;
+        
+        
+    }
+
+    function calcDisc(){
+      
+      var discountValue = document.getElementById("discValue").value;
+      var netTotal = document.getElementById("netTotal").value;
+
+      var discountTotal = Math.round((Number(discountValue) * Number(netTotal))/100);
+      
+      document.getElementById("discTotal").innerHTML = discountTotal;
+      document.getElementById("discTotalVal").value = discountTotal;
+
+      var subTotal = netTotal - discountTotal;
+      document.getElementById("subTotalVal").value = subTotal;
+      document.getElementById("subTotal").innerHTML = subTotal;
+      
+      var cgst = Math.round(subTotal * 0.09);
+      document.getElementById("cgstVal").value = cgst;
+      document.getElementById("cgst").innerHTML = cgst;
+
+      var sgst = Math.round(subTotal * 0.09);
+      document.getElementById("sgstVal").value = sgst;
+      document.getElementById("sgst").innerHTML = sgst;
+
+      var finalBillValue = subTotal + cgst + sgst;
+      document.getElementById("finalBillVal").value = finalBillValue;
+      document.getElementById("finalBill").innerHTML = finalBillValue;
+
+    }
+</script>
+
+
+
+
+<%- include("partials/footer.ejs") -%>

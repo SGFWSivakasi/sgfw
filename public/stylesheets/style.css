@@ -1,0 +1,73 @@
+/* Navbar */
+
+.navbar{
+  padding: 2% 4% !important;
+  background-color: #35155D !important;
+}
+
+.navbar-brand{
+  color:yellow !important;
+  font-weight: bold;
+  font-size: 1.5rem !important;
+}
+
+.navbar .nav-link{
+  font-weight: bold !important;
+  padding-left: 30px !important;
+  color: white !important;
+}
+
+/* Products */
+
+.cf-mainSection{
+  background-color: #F8F0E5 !important;
+  padding: 2% 4% !important;
+  text-align: center !important;
+  margin-top: 2% !important;
+}
+
+.cf-products{
+  background-color: #D8D9DA !important;
+  padding: 2% 4% !important;
+  text-align: center !important;
+  margin-top: 2% !important;
+}
+
+/* New Bill */
+
+.cf-bill{
+  background-color: #EAC696 !important;
+  padding: 5% 15% !important;
+  text-align: center !important;
+  margin-top: 2% !important;
+}
+
+.fields{
+  width:50px !important; 
+  margin:auto !important;
+  border: none !important;
+  font-weight: bold !important;
+
+}
+
+/* Signin */
+
+.cf-signin{
+  padding: 2% 14% !important;
+}
+
+
+/* Reports */
+
+.cf-reports{
+  padding: 2% 5% !important;
+  text-align: center !important;
+}
+
+.dashboard{
+  text-align: center !important;
+  color: #35155D;
+  text-transform: uppercase;
+  padding: 2% 4% !important;
+  background-color: #D8D9DA;
+}

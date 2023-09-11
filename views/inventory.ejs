@@ -1,0 +1,55 @@
+<%- include("partials/header.ejs") -%>
+    
+<section id="mainSection">
+    <div class="container-fluid cf-mainSection">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>INVENTORY</h1>
+                  <table class="table table-light table-responsive">
+                      <thead>
+                        <tr>
+                          <th scope="col">Product Name</th>
+                          <th scope="col">Type</th>
+                          <th scope="col">Stock</th>
+                          <th scope="col">Update</th>
+                          <th scope="col">Add</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <% if (products) { %>
+                          <% products.forEach((product,index) => { %>
+                              <tr>
+                                  <td><%=product.name%></td>
+                                  <td><%=product.type%></td>
+                                  <td><%=product.currentStock%></td>
+                                <form action="/updateStock/<%=product._id%>" method="post">
+                                  <td><input type="text" style="width:50px !important; margin:auto !important;" class="form-control" name="newStock" id="newStock<%=index%>" onChange="enableBtn('<%=index%>')"></td>
+                                  <td><button type="submit" id="button<%=index%>" disabled class="btn btn-sm btn-primary">+</td>
+                                </form>
+                                </tr>
+                          <% }) %>
+                          <% } %>
+                      </tbody>
+                  </table>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+  function enableBtn(i){
+    var valuee = document.getElementById("newStock" + i).value;
+    if(valuee > 0){
+      document.getElementById("button"+i).disabled = false;
+    }
+    else{
+      document.getElementById("button"+i).disabled = true;
+    }
+  }
+
+</script>
+
+
+<%- include("partials/footer.ejs") -%>

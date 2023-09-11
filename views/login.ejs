@@ -1,0 +1,49 @@
+<%- include("partials/header.ejs") -%>
+
+
+<section id="signin">
+    <div class="container-fluid cf-signin">
+        <div class="row">
+            <div class="col-md-6" style="margin: auto !important;">
+                <form action="/login" method="post">
+                    <img class="mb-4" src="/images/logo.png" alt="" width="20%">
+                    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+                    <% if (messages) { %>
+                        <p style="margin: 0%;"><span style="color: white;background-color:red; padding: 2px 4px;"><%= messages %></span></p>
+                        <% } %>
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="username" name="username" placeholder="username here">
+                      <label for="username">User Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                      <label for="password">Password</label>
+                    </div>
+                
+                    <button class="btn btn-primary btn-sm py-2" type="submit">Sign in</button>
+                    <a href="/changePassword" role="button" class="btn btn-secondary btn-sm">Change Password</a>
+                  </form>
+            </div>
+        </div>
+    </div>
+</section>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include("partials/footer.ejs") -%>

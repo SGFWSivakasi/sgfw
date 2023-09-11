@@ -1,0 +1,177 @@
+<%- include("partials/header.ejs") -%>
+
+<section id="reports">
+    <div class="container-fluid cf-reports">
+        <div class="row">
+            <h1 style="color: hsl(320, 100%, 15%); padding-bottom: 2% !important;">REPORTS</h1>
+            <div class="col-md-2">  
+                <div class=" align-items-start">
+                    <h6 class="dashboard">Dashboard</h6>
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/reports" class="nav-link" id="v-pills-profile-tab" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Bills</a>
+                        <a href="/customers" class="nav-link active" id="v-pills-messages-tab" role="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Customers</a>
+                        <a href="#" class="nav-link" id="v-pills-settings-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Sale by Day</a>
+                        <a href="/saleByItems" class="nav-link" id="v-pills-settings-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Sale by Items</a>
+                      </div>
+                  </div>
+            </div>
+            <div class="col-md-10 row">
+                <div class="col-md-6" style="margin: auto !important;">
+                    <h1 style="color: #35155D;">SALE REPORT</h1>
+                    <form action="/getSaleReport" method="post">
+                        
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" name="from" id="from" placeholder="">
+                            <label for="from">Start Date</label>
+                        </div>
+                        <div class="form-floating  mb-3">
+                            <input type="date" class="form-control" name="to" id="to">
+                            <label for="to">End Date</label>
+                        </div>
+                        <div class="form-floating  mb-3">
+                            <button type="submit" class="btn btn-sm btn-primary">Get Sale Report</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12" style="padding-top: 2% !important;">
+                    <% if (bills.length>0) { %>
+                    <h4>SALE BETWEEN <span style="color: red;"><%=from%></span> to <span style="color: red;"><%=to%></span></h4>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Party</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Items</th>
+                            <th scope="col">Net Total</th>
+                            <th scope="col">Disc %</th>
+                            <th scope="col">Sub Total</th>
+                            <th scope="col">CGST</th>
+                            <th scope="col">SGST</th>
+                            <th scope="col">Total Bill</th>
+                           
+                          </tr>
+                        </thead>
+                        <tbody>
+                            
+                                <% bills.forEach(bill => { %>
+                                    
+                          <tr>
+                            
+                            <td><%=bill.date.toISOString().slice(0,10)%></td>
+                            <td><%=bill.partyName%></td>
+                            <td><%=bill.partyMob%></td>
+                            <td>
+    
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=bill._id%>">
+                                    Items
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal<%=bill._id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Particulars</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        
+                                            <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Item</th>
+                                                    <th scope="col">Rate</th>
+                                                    <th scope="col">Per</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Subtotal</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if (bill.billItems) { %>
+                                                     <% bill.billItems.forEach(item => { %>
+                                                        <tr>
+                                                            <td><%=item.name%></td>
+                                                            <td><%=item.rate%></td>
+                                                            <td><%=item.per%></td>
+                                                            <td><%=item.order%></td>
+                                                            <td><%=item.subTotal%></td>
+                                                          </tr>
+                                                     <% }) %>
+                                                    <% } %>
+                                                  
+                                                </tbody>
+                                              </table>
+    
+    
+    
+    
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+    
+                            </td>
+                            <td>&#8377;<%=bill.netTotal%></td>
+                            <td><%=bill.discValue%>%</td>
+                            <td>&#8377;<%=bill.subTotal%></td>
+                            <td>&#8377;<%=bill.sgst%></td>
+                            <td>&#8377;<%=bill.cgst%></td>
+                            <td>&#8377;<%=bill.overallTotal%></td>
+                            </tr>
+                          
+                       <% }) %>
+                       
+                     
+                        </tbody>
+                    </table>
+                    <% } %>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <table class="table" style="text-align: right !important;">
+                       
+                        <tbody>
+                            <% if (totalOrders > 0) { %>
+                           
+                                    
+                            <tr>
+                                <td>Total Orders</td>
+                                <td><%=totalOrders%></td>
+                            </tr>
+                            <tr>
+                                <td>Net Bill Amounts</td>
+                                <td>&#8377;<%=subTotal%></td>
+                            </tr>
+                            <tr>
+                                <td>CGST Values</td>
+                                <td>&#8377;<%=cgst%></td>
+                            </tr>
+                            <tr>
+                                <td>SGST Values</td>
+                                <td>&#8377;<%=sgst%></td>
+                            </tr>
+                            <tr>
+                                <td>Overall Total</td>
+                                <td><strong>&#8377;<%=overallTotal%></strong></td>
+                            </tr>
+                      
+                       <% } %>
+                     
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") -%>
+
+
+
+

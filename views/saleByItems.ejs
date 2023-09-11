@@ -1,0 +1,73 @@
+<%- include("partials/header.ejs") -%>
+
+<section id="reports">
+    <div class="container-fluid cf-reports">
+        <div class="row">
+            <h1 style="color: hsl(320, 100%, 15%); padding-bottom: 2% !important;">REPORTS</h1>
+            <div class="col-md-2">  
+                <div class=" align-items-start">
+                    <h6 class="dashboard">Dashboard</h6>
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="/reports" class="nav-link" id="v-pills-profile-tab" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Bills</a>
+                        <a href="/customers" class="nav-link" id="v-pills-messages-tab" role="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Customers</a>
+                        <a href="/saleByDay" class="nav-link" id="v-pills-settings-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Sale by Day</a>
+                        <a href="#" class="nav-link active" id="v-pills-settings-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Sale by Items</a>
+                      </div>
+                  </div>
+            </div>
+            <div class="col-md-10 row">
+                <div class="col-md-8" style="margin: auto !important;">
+                    <h1 style="color: #35155D;">SALE BY ITEMS REPORT</h1>
+                    <form action="/getSaleItemsReport" method="post">
+                        
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" name="from" id="from" placeholder="">
+                            <label for="from">Start Date</label>
+                        </div>
+                        <div class="form-floating  mb-3">
+                            <input type="date" class="form-control" name="to" id="to">
+                            <label for="to">End Date</label>
+                        </div>
+                        <div class="form-floating  mb-3">
+                            <button type="submit" class="btn btn-sm btn-primary">Get Sale By Items Report</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-7" style="padding-top: 2% !important; margin: auto !important;">
+                    <% if (items.length>0) { %>
+                    <h4>SALE BETWEEN <span style="color: red;"><%=from%></span> to <span style="color: red;"><%=to%></span></h4>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            
+                                <% items.forEach(entry => { %>
+                                    
+                          <tr>
+                            <td><%=entry.name%></td>
+                            <td><%=entry.order%></td>
+                          
+                            </tr>
+                          
+                       <% }) %>
+                       
+                     
+                        </tbody>
+                    </table>
+                    <% } %>
+                </div>
+                
+            </div>
+        </div>
+                </div>
+</section>
+
+<%- include("partials/footer.ejs") -%>
+
+
+
+
