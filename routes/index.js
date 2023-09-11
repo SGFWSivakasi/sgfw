@@ -223,7 +223,7 @@ router.get('/generateEstimate/:id', function(req,res,next){
         const browser = await puppeteer.launch({
           headless:false,
           args: ['--no-sandbox','--disable-setuid-sandbox'],
-          executablePath: "/path/to/Chrome"
+          executablePath: "/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96"
         });
     
       // create a new page
