@@ -1,3 +1,4 @@
+require("dotenv").config();
 var express = require('express');
 var router = express.Router();
 const Product = require('../models/products');
@@ -224,9 +225,12 @@ router.get('/generateEstimate/:id', function(req,res,next){
         const browser = await puppeteer.launch({
           
           headless:false,
-          args: ['--no-sandbox','--disable-setuid-sandbox'],
-          // executablePath: "/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96/chrome.exe",
-          // ignoreDefaultArgs: ['--disable-extensions'],
+          args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--single_process',
+            '--no-zygote'],
+          executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()
         });
         console.log(browser.process().spawnfile);
       // create a new page
