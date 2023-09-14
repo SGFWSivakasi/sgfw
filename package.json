@@ -7,7 +7,7 @@
     "postinstall": "node node_modules/puppeteer/install.js"
   },
   "engines": {
-    "node": "12.8.1"
+    "node": "18.14.1"
   },
   "dependencies": {
     "chrome-aws-lambda": "^9.1.0",
