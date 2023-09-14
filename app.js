@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -14,7 +14,7 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
-const mongoUri = 'mongodb+srv://' + process.env.MONGO_ADMIN_UN + ':' + process.env.MONGO_ADMIN_PW + '@cluster0.ks6yjbb.mongodb.net/?retryWrites=true&w=majority';
+const mongoUri = 'mongodb+srv://sgfw:lJ4Q344AEADBMjoS@cluster0.ks6yjbb.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(mongoUri);
 
 // view engine setup
