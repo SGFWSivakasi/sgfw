@@ -6,6 +6,7 @@ const Login = require('../models/login');
 const puppeteer = require("puppeteer");
 var fs = require("fs");
 const getPage = require('../models/page');
+const locateChrome = require('locate-chrome');
 // const chromium = require('chrome-aws-lambda');
 
 var converter = require('number-to-words');
@@ -219,11 +220,11 @@ router.get('/generateEstimate/:id', function(req,res,next){
       let browser;
       (async () => {
         
-
+        const executablePathe = await new Promise(resolve => locateChrome(arg => resolve(arg)));
         const browser = await puppeteer.launch({
           headless:false,
           args: ['--no-sandbox','--disable-setuid-sandbox'],
-          executablePath: "/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96",
+          executablePath: executablePathe,
           ignoreDefaultArgs: ['--disable-extensions']
         });
     
