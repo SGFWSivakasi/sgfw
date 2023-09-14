@@ -230,6 +230,7 @@ router.get('/generateEstimate/:id', function(req,res,next){
             '--disable-setuid-sandbox',
             '--single_process',
             '--no-zygote'],
+            executablePath: '/usr/bin/chromium-browser'
           // executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()
           // executablePath:'/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96/chrome-linux/chrome.exe'
         });
