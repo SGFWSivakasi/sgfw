@@ -224,7 +224,7 @@ router.get('/generateEstimate/:id', function(req,res,next){
         const browser = await puppeteer.launch({
           headless:false,
           args: ['--no-sandbox','--disable-setuid-sandbox'],
-          executablePath: "/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96/chrome.exe",
+          executablePath: "/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96",
           ignoreDefaultArgs: ['--disable-extensions']
         });
     
