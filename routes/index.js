@@ -220,21 +220,22 @@ router.get('/generateEstimate/:id', function(req,res,next){
       let browser;
       (async () => {
         
-
+        
         const browser = await puppeteer.launch({
+          
           headless:false,
           args: ['--no-sandbox','--disable-setuid-sandbox'],
-          executablePath: "/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96",
+          executablePath: "/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96/linux/chrome.exe",
           ignoreDefaultArgs: ['--disable-extensions']
         });
-    
+        console.log(browser.process().spawnfile);
       // create a new page
       const page = await browser.newPage();
             
       // Configure the navigation timeout
       page.setDefaultNavigationTimeout(0);
 
-      await page.setCacheEnabled(false); 
+      // await page.setCacheEnabled(false); 
       // set your html as the pages content
 
       const html = htmll;
