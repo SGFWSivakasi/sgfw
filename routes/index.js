@@ -231,6 +231,7 @@ router.get('/generateEstimate/:id', function(req,res,next){
             '--single_process',
             '--no-zygote'],
           executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()
+          // executablePath:'/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96/chrome-linux/chrome.exe'
         });
         console.log(browser.process().spawnfile);
       // create a new page
