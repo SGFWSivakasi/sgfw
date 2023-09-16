@@ -179,14 +179,14 @@
                         <td style="font-size: 1.5rem;">Goods Value: </td>
                         <td style="font-size: 1.5rem;">&#8377;<%=bill.netTotal%>/- &nbsp;</td>
                         </tr>
-                        <!-- <tr>
-                          <td style="font-size: 1.5rem;">Packing Charge 3%: </td>
-                          <td style="font-size: 1.5rem;"><p style="color: black; font-weight: bold;">&#8377;<%=bill.pkgCharge%>/- &nbsp;</p></td>
-                      </tr> -->
-                      <!-- <tr>
+                        <tr>
+                          <td style="font-size: 1.5rem;">Discount <%=bill.discValue%>%: </td>
+                          <td style="font-size: 1.5rem;"><p style="color: black; font-weight: bold;">&#8377;<%=bill.discAmt%>/- &nbsp;</p></td>
+                      </tr>
+                      <tr>
                         <td style="font-size: 1.5rem;">Taxable Value: </td>
-                        <td style="font-size: 1.5rem;"><p style="color: black; font-weight: bold;">&#8377;<%=bill.taxableValue%>/- &nbsp;</p></td>
-                      </tr> -->
+                        <td style="font-size: 1.5rem;"><p style="color: black; font-weight: bold;">&#8377;<%=bill.subTotal%>/- &nbsp;</p></td>
+                      </tr>
                         
                         <tr>
                             <td style="font-size: 1.5rem;">CGST 9%: </td>
@@ -213,7 +213,7 @@
         </div>
       </div>
       <div  style="padding: 3% 0% 1%; background-color:rgb(233, 233, 233); border-left: black 2px solid;border-right: black 2px solid;border-top: #c5c5c5 2px solid;border-bottom: #c5c5c5 2px solid;">
-        <h2 class="amoutInWords" style="color: black; text-align: left; padding-left: 10px !important; ">Bill Amount in Words : <strong style="color: black; font-weight: bold;"><%=bill.amountInWords%></strong></h2>
+        <h2 class="amoutInWords" style="color: black; text-align: left; padding-left: 10px !important; ">Bill Amount in Words : <strong style="color: black; font-weight: bold; text-transform: uppercase;"><%=bill.amountInWords%> rupees only</strong></h2>
       </div>
       <div  style="padding: 4% 2% 4%; background-color: white;border-left: black 2px solid;border-right: black 2px solid;border-bottom: black 2px solid;border-top: #c5c5c5 2px solid;">
           <div class="row">

@@ -8,8 +8,7 @@ const puppeteer = require("puppeteer");
 var fs = require("fs");
 const getPage = require('../models/page');
 
-// const chromium = require('chrome-aws-lambda');
-
+var Xvfb = require('xvfb');
 var converter = require('number-to-words');
 
 
@@ -220,60 +219,113 @@ router.get('/generateEstimate/:id', function(req,res,next){
 
       let browser;
       (async () => {
-        
-        
-        const browser = await puppeteer.launch({
-          
-          headless:false,
-          args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--single_process',
-            '--no-zygote'],
-            executablePath: '/usr/bin/chromium-browser'
-          // executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()
-          // executablePath:'/opt/render/project/src/.cache/puppeteer/chrome/linux-116.0.5845.96/chrome-linux/chrome.exe'
+    
+        var xvfb = new Xvfb({
+          silent: true,
+          xvfb_args: ["-screen", "0", '1280x720x24', "-ac"],
         });
-        console.log(browser.process().spawnfile);
-      // create a new page
-      const page = await browser.newPage();
-            
-      // Configure the navigation timeout
-      page.setDefaultNavigationTimeout(0);
+        xvfb.start((err)=>{if (err) console.error(err)});
+    
+        const PCR = require("puppeteer-chromium-resolver");
+        const puppeteer = require('puppeteer');
+        const option = {
+          revision: "",
+          detectionPath: "",
+          folderName: ".chromium-browser-snapshots",
+          defaultHosts: ["https://storage.googleapis.com", "https://npm.taobao.org/mirrors"],
+          hosts: [],
+          cacheRevisions: 2,
+          retry: 3,
+          silent: false
+         };      
+    
+        const stats = PCR.getStats(option);
+    
+        if(stats){
+          
+              const browser = await stats.puppeteer.launch({
+                headless:false,
+                args: ['--no-sandbox','--disable-setuid-sandbox','--display='+xvfb._display],
+                executablePath: stats.executablePath
+              });
+    
+        // create a new page
+        const page = await browser.newPage();
+              
+        // Configure the navigation timeout
+        await page.setDefaultNavigationTimeout(0);
+    
+        await page.setCacheEnabled(false); 
+        // set your html as the pages content
+    
+        const html = htmll;
+        await page.setContent(html, {
+        waitUntil: 'domcontentloaded'
+        });
+        await page.emulateMediaType('screen');
+        const pdf = await page.pdf({format: "A4"});
+        res.contentType("application/pdf");
 
-      // await page.setCacheEnabled(false); 
-      // set your html as the pages content
-
-      const html = htmll;
-      await page.setContent(html, {
-      waitUntil: 'domcontentloaded'
-      });
-      await page.emulateMediaType('screen');
-      const pdf = await page.pdf({format: "A4"});
-      res.contentType("application/pdf");
-
-
-      // optionally:
-      res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=invoice.pdf"
-      );
-
-      res.send(pdf);
-
-    }
-      )()
-      .catch(err => {
-        console.error(err);
-        res.sendStatus(500);
-      }) 
-      .finally(() => browser?.close());
+        // optionally:
+        res.setHeader(
+        "Content-Disposition",
+        "attachment; filename=" + result.partyName + ".pdf"
+        );
+    
+        res.send(pdf);
+        }
+        else{
+          const stats = await PCR(option);
+          const browser = await stats.puppeteer.launch({
+            headless:false,
+            args: ['--no-sandbox','--disable-setuid-sandbox','--display='+xvfb._display],
+            executablePath: stats.executablePath
+          });
+    
+    // create a new page
+    const page = await browser.newPage();
+          
+    // Configure the navigation timeout
+    await page.setDefaultNavigationTimeout(0);
+    
+    await page.setCacheEnabled(false); 
+    // set your html as the pages content
+    
+    
+    
+    const html = htmll;
+    await page.setContent(html, {
+    waitUntil: 'domcontentloaded'
+    });
+    await page.emulateMediaType('screen');
+    const pdf = await page.pdf({format: "A4"});
+    res.contentType("application/pdf");
+    
+    
+    // optionally:
+    res.setHeader(
+    "Content-Disposition",
+    "attachment; filename=" + result.partyName + ".pdf"
+    );
+    
+    res.send(pdf);
+    
+        }
+    
+      
+      })()
+        .catch(err => {
+          console.error(err);
+          res.sendStatus(500);
+        }) 
+        .finally(() => browser?.close());
+    })
 
   })
 
 })
 
-})
+
 
 router.get('/login', function(req,res,next){
   res.render('login', {title:'Admin Login | SGFW', messages:null, login: req.session.login ? req.session.login : null});
